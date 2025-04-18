@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dating Sim Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f3f4f6;
+        }
+
+        #loading-screen {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            flex-direction: column;
+        }
+
+        #start-btn {
+            background-color: #ff4c4c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #start-btn:hover {
+            background-color: #ff2a2a;
+        }
+
+        #game-content {
+            display: none;
+            text-align: center;
+        }
+
+        .answer-btn {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 10px;
+            display: block;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .answer-btn:hover {
+            background-color: #45a049;
+        }
+
+        #score {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        #ending {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loading-screen">
+    <div>กำลังโหลดเกม...</div>
+    <button id="start-btn">เริ่มเกม</button>
+</div>
+
+<!-- Your Game Content -->
+<div id="game-content">
+    <h1>ยินดีต้อนรับสู่เกมจีบสาว!</h1>
+    <p id="game-text">เลือกคำตอบของคุณ:</p>
+
+    <!-- Choices for answers -->
+    <button class="answer-btn" onclick="chooseAnswer(1)">คำตอบที่ 1</button>
+    <button class="answer-btn" onclick="chooseAnswer(2)">คำตอบที่ 2</button>
+    <button class="answer-btn" onclick="chooseAnswer(3)">คำตอบที่ 3</button>
+    <button class="answer-btn" onclick="chooseAnswer(4)">คำตอบที่ 4</button>
+
+    <div id="score"></div>
+    <div id="ending"></div>
+</div>
+
+<script>
+    // Start the game and hide the loading screen
+    document.getElementById('start-btn').onclick = function() {
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('game-content').style.display = 'block';
+        showQuestion(1); // Show the first question
+    };
+
+    // Set initial score and current question
+    let score = 0;
+    let currentQuestion = 1;
+
+    // Show the current question and choices
+    function showQuestion(questionNumber) {
+        const gameText = document.getElementById('game-text');
+        const buttons = document.querySelectorAll('.answer-btn');
+
+        if (questionNumber === 1) {
+            gameText.innerText = "คุณจะทำอย่างไรเมื่อเจอเธอครั้งแรก?";
+            buttons[0].innerText = "ทักทายเธอด้วยรอยยิ้ม";
+            buttons[1].innerText = "ถามเธอว่าเธอเป็นใคร";
+            buttons[2].innerText = "เงียบไป";
+            buttons[3].innerText = "หลีกเลี่ยงและเดินไป";
+        } else if (questionNumber === 2) {
+            gameText.innerText = "เธอยิ้มกลับมา คุณจะทำอย่างไรต่อ?";
+            buttons[0].innerText = "เริ่มคุยกับเธอ";
+            buttons[1].innerText = "ถามเธอเกี่ยวกับงาน";
+            buttons[2].innerText = "ชวนเธอไปเที่ยว";
+            buttons[3].innerText = "บอกลาและเดินจากไป";
+        } else if (questionNumber === 3) {
+            gameText.innerText = "เธอตอบกลับอย่างไร?";
+            buttons[0].innerText = "บอกว่าเธอสวย";
+            buttons[1].innerText = "ถามเธอว่าชอบทำอะไร";
+            buttons[2].innerText = "เงียบไป";
+            buttons[3].innerText = "ถามเธอเกี่ยวกับเพลงที่เธอฟัง";
+        } else if (questionNumber === 4) {
+            gameText.innerText = "คุณจะชวนเธอไปไหน?";
+            buttons[0].innerText = "ไปดูหนัง";
+            buttons[1].innerText = "ไปเที่ยวห้าง";
+            buttons[2].innerText = "ไปเดินเล่นในสวน";
+            buttons[3].innerText = "ไปทำการบ้านที่บ้าน";
+        } else if (questionNumber === 5) {
+            gameText.innerText = "เธอยอมรับคำเชิญของคุณ คุณจะทำอย่างไร?";
+            buttons[0].innerText = "บอกเธอว่าอยากรู้จักเธอมากขึ้น";
+            buttons[1].innerText = "ถามเธอเรื่องการศึกษา";
+            buttons[2].innerText = "ขอให้เธอเล่าเรื่องของตัวเอง";
+            buttons[3].innerText = "ถามเธอเกี่ยวกับสัตว์เลี้ยง";
+        }
+        // เพิ่มคำถามต่อไปจนถึงคำถามที่ 10
+        else if (questionNumber === 10) {
+            gameText.innerText = "คำถามสุดท้าย! คุณรู้สึกอย่างไรกับเธอ?";
+            buttons[0].innerText = "รักเธอมาก";
+            buttons[1].innerText = "แค่ชอบ";
+            buttons[2].innerText = "ไม่แน่ใจ";
+            buttons[3].innerText = "แค่เพื่อน";
+        } else {
+            showEndGame();
+        }
+    }
+
+    // Handle answer selection
+    function chooseAnswer(choice) {
+        score += 10; // เพิ่มคะแนนทุกครั้งที่ตอบ
+
+        // Move to the next question after answering
+        currentQuestion++;
+        showQuestion(currentQuestion); // Show next question
+    }
+
+    // Show game end and score
+    function showEndGame() {
+        document.getElementById('game-text').innerText = "ขอบคุณที่เล่นเกมนี้!";
+        document.getElementById('ending').innerText = "คุณได้คะแนนทั้งหมด: " + score;
+
+        const buttons = document.querySelectorAll('.answer-btn');
+        buttons.forEach(button => button.style.display = 'none'); // ซ่อนปุ่มทั้งหมด
+    }
+</script>
+
+</body>
+</html>
